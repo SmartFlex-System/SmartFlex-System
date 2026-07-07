@@ -26,6 +26,4 @@ Fx,Fy,Fz,Mx,My,Mz,COPx,COPy
 
 These represent three-dimensional ground reaction forces, three-dimensional moments, and center-of-pressure coordinates.
 
-## Privacy Note
 
-Do not upload identifiable participant records, raw clinical metadata, or private hospital files to a public GitHub repository. Use de-identified or synthetic data for public examples.
