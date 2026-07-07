@@ -24,20 +24,13 @@ Intelligent wearables with topology-enhanced spatiotemporal modeling enable cont
    - pressure array: `F1` to `F16`
 3. Extract 8 target variables:
    - `Fx, Fy, Fz, Mx, My, Mz, COPx, COPy`
-4. Standardize inputs and outputs.
-5. Pad variable-length sequences.
-6. Build a pressure-topology encoder using a 16-sensor adjacency matrix.
-7. Fuse pressure-topology features with IMU features.
-8. Train a bidirectional LSTM and time-distributed output layer.
-9. Save:
-   - `model.keras`
-   - `normalization_stats.npz`
+4. Build a pressure-topology encoder using a 16-sensor adjacency matrix.
+5. Fuse pressure-topology features with IMU features.
+6. Train a bidirectional LSTM layer.
+7. Save model.
 
 ## Pressure Heatmap
 
-```bash
-python visualize/visualization.py --input_csv path\to\sample.csv --output_png results/pressure_heatmap.png
-```
 
 The heatmap reconstructs a continuous plantar-pressure field from discrete sensor values using Gaussian kernel summation:
 
@@ -47,12 +40,7 @@ P(x, y) = sum_i p_i * exp(-((x - x_i)^2 + (y - y_i)^2) / (2 * sigma^2))
 
 Sensor columns are renamed from hardware-style labels such as `R2-C2` to sensor IDs `1` to `16`, then reordered before reconstruction. CSV files with direct `F1` to `F16` columns are also supported.
 
-Useful options:
 
-```bash
-python visualize/visualization.py --input_csv sample.csv --frame 120 --output_png results/frame_120.png
-python visualize/visualization.py --input_csv sample.csv --aggregate mean --sigma 0.12 --output_png results/mean_pressure.png
-```
 
 ## Input CSV Format
 
