@@ -1,5 +1,3 @@
-"""Compute regression metrics for predicted gait kinetic variables."""
-
 from __future__ import annotations
 
 import argparse
