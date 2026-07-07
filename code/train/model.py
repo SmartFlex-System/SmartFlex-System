@@ -1,10 +1,3 @@
-"""Topology-enhanced LSTM model and training workflow.
-
-This public model file keeps the same overall process as the manuscript training
-code: read CSV sequences, standardize inputs and outputs, pad variable-length
-trials, train a pressure-graph encoder plus BiLSTM, and save the model.
-"""
-
 from __future__ import annotations
 
 import argparse
@@ -20,7 +13,6 @@ TARGET_COLUMNS = ["Fx", "Fy", "Fz", "Mx", "My", "Mz", "COPx", "COPy"]
 
 
 def plantar_adjacency() -> np.ndarray:
-    """Manual 16-sensor adjacency matrix used for pressure topology encoding."""
     adjacency = np.zeros((16, 16), dtype=np.float32)
     connections = [
         (12, 8), (12, 0), (8, 0), (4, 8), (1, 4), (1, 13), (7, 13),
@@ -77,7 +69,6 @@ def get_custom_objects() -> dict:
 
 
 class GraphConvLayer(_require_tensorflow()[1].Layer):
-    """Graph convolution over the 16 plantar-pressure sensor nodes."""
 
     def __init__(self, units: int, activation: str = "relu", **kwargs):
         super().__init__(**kwargs)
@@ -117,7 +108,6 @@ def build_model(
     dropout: float = 0.2,
     learning_rate: float = 1e-4,
 ):
-    """Build the pressure-topology + BiLSTM reconstruction model."""
     tf, layers, models, optimizers = _require_tensorflow()
     adjacency = tf.constant(plantar_adjacency(), dtype=tf.float32)
 
