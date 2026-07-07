@@ -1,5 +1,3 @@
-"""Pseudo-label adaptation for target-domain insole sequences."""
-
 from __future__ import annotations
 
 import argparse
