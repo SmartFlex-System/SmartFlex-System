@@ -1,14 +1,3 @@
-"""Spatial plantar-pressure heatmap reconstructed from 16 sensor readings.
-
-The heatmap is computed from the same principle described in the manuscript:
-each discrete pressure sensor contributes to nearby insole positions through a
-Gaussian kernel,
-
-    P(x, y) = sum_i p_i * exp(-((x - x_i)^2 + (y - y_i)^2) / (2 * sigma^2))
-
-where ``p_i`` is the pressure value of sensor ``i`` and ``(x_i, y_i)`` is its
-location in the insole coordinate system.
-"""
 
 from __future__ import annotations
 
@@ -40,7 +29,7 @@ SENSOR_RENAME_MAP = {
 SENSOR_ORDER = [str(i) for i in range(1, 17)]
 DEFAULT_PRESSURE_COLUMNS = [f"F{i}" for i in range(1, 17)]
 
-# Approximate normalized insole coordinates. y=0 is heel, y=1 is forefoot/toe.
+
 SENSOR_COORDINATES = {
     "1": (-0.18, 0.86),
     "2": (-0.06, 0.92),
@@ -71,7 +60,6 @@ def _renamed_header(header: str) -> str:
 
 
 def select_pressure_matrix(table: pd.DataFrame) -> tuple[np.ndarray, list[str]]:
-    """Rename hardware-style columns and reorder pressure sensors from 1 to 16."""
     renamed = {_renamed_header(col): col for col in table.columns}
 
     if all(col in table.columns for col in DEFAULT_PRESSURE_COLUMNS):
@@ -94,7 +82,6 @@ def summarize_pressure_frame(
     frame: int | None,
     aggregate: str,
 ) -> np.ndarray:
-    """Choose one frame or summarize a full pressure sequence."""
     if frame is not None:
         if frame < 0 or frame >= pressure_matrix.shape[0]:
             raise IndexError(f"frame must be in [0, {pressure_matrix.shape[0] - 1}]")
@@ -127,7 +114,6 @@ def reconstruct_pressure_field(
     grid_size: int = 180,
     sigma: float = 0.10,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Reconstruct a continuous insole pressure field by Gaussian summation."""
     x = np.linspace(-0.34, 0.34, grid_size)
     y = np.linspace(0.0, 1.0, grid_size)
     xx, yy = np.meshgrid(x, y)
@@ -142,7 +128,6 @@ def reconstruct_pressure_field(
 
 
 def insole_mask(xx: np.ndarray, yy: np.ndarray) -> np.ndarray:
-    """Approximate foot-shaped mask in normalized insole coordinates."""
     center = 0.03 * np.sin(2.0 * np.pi * yy)
     half_width = 0.12 + 0.12 * np.sin(np.pi * yy) + 0.07 * np.exp(-((yy - 0.88) / 0.20) ** 2)
     return np.abs(xx - center) <= half_width
