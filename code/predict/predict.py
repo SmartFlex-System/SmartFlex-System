@@ -1,5 +1,3 @@
-"""Predict gait kinetics from a CSV file using a trained sequence model."""
-
 from __future__ import annotations
 
 import argparse
