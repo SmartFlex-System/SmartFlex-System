@@ -56,10 +56,6 @@ For supervised training and evaluation, include:
 Fx,Fy,Fz,Mx,My,Mz,COPx,COPy
 ```
 
-## Citation
-
-Please cite the associated manuscript if you use this code. A draft citation file is provided in `CITATION.cff`.
-
 ## License
 
 This project is released under the MIT License. See `LICENSE`.
