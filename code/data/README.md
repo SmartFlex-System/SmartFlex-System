@@ -1,6 +1,3 @@
-# Data Format
-
-The original study data are not included in this public repository.
 
 ## Input Columns
 
