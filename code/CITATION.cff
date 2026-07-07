@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: "Wearable insole kinetics reconstruction public code"
+message: "If you use this code, please cite the associated manuscript."
+type: software
+authors:
+  - family-names: Liu
+    given-names: Tianshi
+  - family-names: Cheng
+    given-names: Tiefeng
+  - family-names: Lan
+    given-names: Chunna
+  - family-names: Li
+    given-names: Xiao
+  - family-names: Mo
+    given-names: Fuhao
+date-released: 2026-07-07
+license: MIT
